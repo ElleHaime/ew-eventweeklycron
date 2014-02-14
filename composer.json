@@ -1,0 +1,7 @@
+{
+    "require": {
+        "temafey/phalcon-cron": "dev-master",
+        "temafey/phalcon-extjs": "dev-master",
+        "temafey/queue-center": "dev-master"
+    }
+}

@@ -1,0 +1,48 @@
+apps/cms/config/engine.php
+apps/cron/config/config.php
+vendor/
+public/extjs/apps
+public/extjs/lib
+apps/cms/var/*
+composer.lock
+
+#################
+## Eclipse
+#################
+
+bin/
+tmp/
+local.properties
+.pydevproject
+.project
+.metadata
+.tmp
+.bak
+.swp
+~.nib
+.classpath
+.settings/
+.loadpath
+.idea
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
