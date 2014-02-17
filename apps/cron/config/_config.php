@@ -28,7 +28,7 @@ return new \Phalcon\Config([
 		'dataDir'		 => realpath(__DIR__ . '/../../cron/data/'),
 		'appDir'		 => realpath(__DIR__ . '/../../cron/'),
 		'rootDir'		 => realpath(__DIR__ . '/../../../'),
-		'documentRoot'	 => realpath(__DIR__ . '/../../../public/'),
+		'documentRoot'	 => realpath(__DIR__ . '/../../../cli/'),
 		'baseUri'        => 'eventweekly-cron.loc',
 	],
 	'models' => [
