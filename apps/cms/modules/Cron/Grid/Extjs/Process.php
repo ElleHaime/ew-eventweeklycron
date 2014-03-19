@@ -5,7 +5,7 @@
 namespace Cron\Grid\Extjs;
 
 use Engine\Crud\Grid\Column,
-    Engine\Crud\Grid\Filter,
+    Engine\Crud\Grid\Filter\Extjs as Filter,
     Engine\Crud\Grid\Filter\Field,
     Engine\Filter\SearchFilterInterface as Criteria;
 
@@ -80,7 +80,7 @@ class Process extends Base
                 Criteria::COLUMN_NAME => Criteria::CRITERIA_LIKE,
                 'pid' =>  Criteria::CRITERIA_EQ
 			]),
-			'pid' => new Field\Standart('Pid',Criteria::CRITERIA_EQ),
+			'pid' => new Field\Standart('Pid'),
             'job' => new Field\Join('Job', '\Cron\Model\Job'),
 			'status' => new Field\ArrayToSelect('Status', null, ['run' => 'Run','running' => 'Running','completed' => 'Completed','error' => 'Error','stopped' => 'Stopped','stop' => 'Stop','waiting' => 'Waiting','finished' => 'Finished'])
 		]);

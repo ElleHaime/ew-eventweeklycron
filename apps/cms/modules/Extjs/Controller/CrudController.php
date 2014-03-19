@@ -4,7 +4,7 @@
  */
 namespace Extjs\Controller;
 
-use \ExtjsCms\Controller\CrudController as Base;
+use ExtjsCms\Controller\CrudController as Base;
 
 /**
  * @RoutePrefix("/admin", name="home")

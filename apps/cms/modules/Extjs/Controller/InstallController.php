@@ -4,7 +4,7 @@
  */
 namespace Extjs\Controller;
 
-use \ExtjsCms\Controller\InstallController as Base;
+use ExtjsCms\Controller\InstallController as Base;
 
 /**
  * @RoutePrefix("/extjs", name="home")

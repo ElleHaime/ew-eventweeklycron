@@ -1,11 +1,12 @@
-{# config.volt #}
-Ext.Loader.setConfig({
-    enabled: true,
-    paths: {
-      'Cms': '/extjs/lib/cms',
-      'Ext': '/extjs/lib/src',
-      'Ext.ux': '/extjs/lib/ux',
-      'ExtjsCms': '/extjs/apps/ExtjsCms',
-      'Cron': '/extjs/apps/Cron'
-    }
-});
+    {# config.volt #}
+    Ext.Loader.setConfig({
+        enabled: true,
+        paths: {
+          'Cms': '/extjs/lib/cms',
+          'Ext': '/extjs/lib/src',
+          'Ext.ux': '/extjs/lib/ux',
+          'Ext.ux.app':'/extjs/lib/ux/app',
+          'ExtjsCms': '/extjs/apps/ExtjsCms',
+          'Cron': '/extjs/apps/Cron'
+        }
+    });

@@ -5,7 +5,7 @@
 namespace Cron\Grid\Extjs;
 
 use Engine\Crud\Grid\Column,
-    Engine\Crud\Grid\Filter,
+    Engine\Crud\Grid\Filter\Extjs as Filter,
     Engine\Crud\Grid\Filter\Field,
     Engine\Filter\SearchFilterInterface as Criteria;
 
@@ -83,7 +83,7 @@ class Job extends Base
                 'command' => Criteria::CRITERIA_LIKE
 			]),
 			'id' => new Field\Primary('Id'),
-			'name' => new Field\Standart('name', 'Name', Criteria::CRITERIA_BEGINS),
+			'name' => new Field\Standart('Name', 'name', null, Criteria::CRITERIA_BEGINS),
 			'status' => new Field\ArrayToSelect('Status', null, ['1' => "Active", '0' => "Not active"])
 		]);
 	}

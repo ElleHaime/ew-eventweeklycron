@@ -39,7 +39,7 @@ return new \Phalcon\Config([
                 ]
             ]
         ],
-        'session' => [
+        /*'session' => [
             'adapter' => 'redis',
             'name' => 'rdsession',
             'lifetime' => '3600',
@@ -55,6 +55,20 @@ return new \Phalcon\Config([
                     'prefix' => 'session_'
                 ]
             ]
+        ]
+        'session' => [
+            'adapter' => 'memcache',
+            'name' => 'mcsession',
+            'lifetime' => '3600',
+            'cookie_lifetime' => '1440',
+            'host' => '127.0.0.1',
+            'prefix' => 'session_'
+        ]*/
+        'session' => [
+            'adapter' => 'files',
+            'name' => 'fsession',
+            'lifetime' => '3600',
+            'cookie_lifetime' => '1440'
         ],
         'logger' => [
             'enabled' => true,
@@ -79,7 +93,12 @@ return new \Phalcon\Config([
             'resources' => 'acl_resources',
             'resourcesAccesses' => 'acl_resources_accesses',
             'accessList' => 'acl_access_list',
-            'rolesInherits' => 'acl_roles_inherits'
+            'rolesInherits' => 'acl_roles_inherits',
+            'authModel' => '\User\Model\Users',
+            'authKey'   => 'rememberme'
+        ],
+        'crypt' => [
+            'key' => 'ProjectCryptKey'
         ]
     ],
     'metadata' => [

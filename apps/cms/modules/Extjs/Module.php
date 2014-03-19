@@ -35,11 +35,14 @@ class Module extends BaseModule
      * @var array
      */
     protected $_services = [
+        'registry',
         'dispatcher',
         'view',
         'volt',
-        //'acl',
-        //'viewer'
+        'crypt',
+        'acl',
+        'viewer',
+        'auth'
     ];
 
     /**
@@ -60,6 +63,9 @@ class Module extends BaseModule
     public function registerServices($di)
     {
         parent::registerServices($di);
+
+
+
 
         if ($this->_config->application->debug) {
             $this->_initExtjsApplications();

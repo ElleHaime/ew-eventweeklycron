@@ -48,7 +48,7 @@ class Log extends Base
     {
         $this->_fields = [
 			'id' => new Field\Primary('Id'),
-			'job' => new Field\ManyToOne('Job', ['\Cron\Model\Process', '\Cron\Model\Job']),
+			'job' => new Field\ManyToOne('Job', '\Cron\Model\Job', null),
 			'process' => new Field\ManyToOne('Process', '\Cron\Model\Process'),
 			'type' => new Field\ArrayToSelect('Type', null, ['error' => "Error", 'message' => "Message"]),
 			'time' => new Field\Text('Date'),

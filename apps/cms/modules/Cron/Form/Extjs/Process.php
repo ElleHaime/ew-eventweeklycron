@@ -54,7 +54,7 @@ class Process extends Base
         	'hash' => new Field\Text('Hash'),
         	'action' => new Field\Text('Action'),
         	'pid' => new Field\Text('Pid'),
-			'status' => new Field\Text('Status', null, ['run' => 'Run','running' => 'Running','completed' => 'Completed','error' => 'Error','stopped' => 'Stopped','stop' => 'Stop','waiting' => 'Waiting','finished' => 'Finished']),
+			'status' => new Field\ArrayToSelect('Status', null, ['run' => 'Run','running' => 'Running','completed' => 'Completed','error' => 'Error','stopped' => 'Stopped','stop' => 'Stop','waiting' => 'Waiting','finished' => 'Finished']),
 			'stime' => new Field\Text('Start Time'),
 			'time' => new Field\Text('Time'),
 			'phash' => new Field\Text('Parent Hash'),

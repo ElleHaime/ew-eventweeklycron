@@ -12,45 +12,55 @@
     {{ assets.outputJs() }}
     {{ assets.outputCss() }}
 </head>
-<style type="text/css">
-    .x-menu-item img.preview-right, .preview-right {
-        background-image: url({{modulePath}}/images/preview-right.gif);
-    }
-    .x-menu-item img.preview-bottom, .preview-bottom {
-        background-image: url({{modulePath}}/images/preview-bottom.gif);
-    }
-    .x-menu-item img.preview-hide, .preview-hide {
-        background-image: url({{modulePath}}/images/preview-hide.gif);
-    }
-
-    #reading-menu .x-menu-item-checked {
-        border: 1px dotted #a3bae9 !important;
-        background: #DFE8F6;
-        padding: 0;
-        margin: 0;
-    }
-</style>
 <script type="text/javascript">
-    function hasOption (name) {
-        return window.location.search.indexOf(name) >= 0;
-    }
-    function formatDate(value){
-        return value ? Ext.Date.dateFormat(value, 'Y-m-d') : '';
-    }
     Ext.Loader.setConfig({enabled: true});
-    Ext.Loader.setPath('Ext.ux', '../ux');
 
-  {% include "layouts/config.volt" %}
-  {% include "layouts/require.volt" %}
+    {% include "layouts/config.volt" %}
+    {% include "layouts/require.volt" %}
 
     {%- block content -%}
     {%- endblock -%}
 
-Ext.onReady(function() {
-    Ext.tip.QuickTipManager.init();
-{% include "layouts/application.volt" %}
-});
+
+    Ext.onReady(function() {
+        // developmenrt
+
+        Ext.log = function () {
+            console.log.apply(console, arguments);
+        }
+
+        Ext.error = function () {
+            console.error.apply(console, arguments);
+        }
+
+        /**
+         * wrapper around console.warn for translations this can be turned on to show what
+         * text is not yet translated
+         */
+        Ext.translationLog = function () {
+//    console.warn.apply(console, arguments);
+        }
+
+        // environment
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
+            expires:new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 7)) //7 days from now
+        }));
+
+        Ext.tip.QuickTipManager.init();
+
+        Ext.application('Cms.app.Application');
+
+    });
 </script>
-<body>
+<body class="loading-bg">
+<div id="logo"><img src="/images/logo.png"></div>
+<div id="loading">
+    <div class="loading-indicator">
+        <img src="/extjs/lib/cms/images/loader.gif" width="32" height="32"
+             style="margin-right:8px;float:left;vertical-align:top;"/>
+        {{ app_title }} - <a href="http://{{ host }}" target="_blank">{{ host_title }}</a>
+        <br/><span id="loading-msg">Loading application...</span>
+    </div>
+</div>
 </body>
 </html>

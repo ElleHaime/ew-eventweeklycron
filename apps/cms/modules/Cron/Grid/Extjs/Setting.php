@@ -5,7 +5,7 @@
 namespace Cron\Grid\Extjs;
 
 use Engine\Crud\Grid\Column,
-    Engine\Crud\Grid\Filter,
+    Engine\Crud\Grid\Filter\Extjs as Filter,
     Engine\Crud\Grid\Filter\Field,
     Engine\Filter\SearchFilterInterface as Criteria;
 
@@ -56,7 +56,7 @@ class Setting extends Base
 			'memory_mb' => new Column\Text('Min free memory in mb', 'min_free_memory_mb', true, false, '100'),
 			'memory_percentage' => new Column\Text('Min free memeory in percentage', 'min_free_memory_percentage', true, false, '100'),
 			'cpu' => new Column\Text('Max cpu load', 'max_cpu_load', true, false, '100'),
-			'action_status' => new Column\Text('Action'),
+			'action_status' => new Column\Collection('Action', null, ['1' => "Running", '2' => "Pending", '3' => "Restart", "4" => "Stop"]),
 			'status' => new Column\Collection('Status', null, ['1' => "Active", '0' => "Not active"])
 		];
 	}
