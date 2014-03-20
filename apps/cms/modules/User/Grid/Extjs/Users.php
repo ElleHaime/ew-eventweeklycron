@@ -81,7 +81,7 @@ class Users extends Base
 			]),
 			'id'   => new Field\Primary('Id'),
             'name' => new Field\Name('Name'),
-			'role' => new Field\Join('acl_role_id', 'Роли', '\ExtjsCms\Model\Acl\Role')
+			'role' => new Field\Join('Role', '\ExtjsCms\Model\Acl\Role')
         ]);
     }
 }

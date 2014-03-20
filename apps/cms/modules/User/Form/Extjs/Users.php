@@ -40,6 +40,26 @@ class Users extends Base
     protected $_containerConditions = null;
 
     /**
+     * Constructor
+     *
+     * @param integer|string $id
+     * @param array $params
+     * @param \Phalcon\DiInterface $di
+     * @param \Phalcon\Events\ManagerInterface $eventsManager
+     */
+    public function __construct(
+        $id = null,
+        array $params = [],
+        \Phalcon\DiInterface $di,
+        \Phalcon\Events\ManagerInterface $eventsManager = null
+    ) {
+        if (!$di) {
+            throw new \Engine\Exception('Dependency injectio not set');
+        }
+        parent::__construct($id, $params, $di, $eventsManager);
+    }
+
+    /**
      * Initialize form fields
      *
      * @return void
@@ -49,8 +69,8 @@ class Users extends Base
 		$this->_fields = [
 			'id'        => new Field\Primary('Id'),
             'name'      => new Field\Name('Name'),
-            'password'  => new Field\Password('Password'),
-            'password_confirm'  => new Field\PasswordConfirm('Password', 'password'),
+            'password'  => new Field\Password('Password', null, $this->_di->get('security')),
+            'confirm'   => new Field\PasswordConfirm('Password confirm', 'password'),
 			'role'      => new Field\ManyToOne('Role', '\ExtjsCms\Model\Acl\Role')
 		];
     }

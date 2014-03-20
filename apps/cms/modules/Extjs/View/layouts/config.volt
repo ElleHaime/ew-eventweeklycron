@@ -7,6 +7,8 @@
           'Ext.ux': '/extjs/lib/ux',
           'Ext.ux.app':'/extjs/lib/ux/app',
           'ExtjsCms': '/extjs/apps/ExtjsCms',
-          'Cron': '/extjs/apps/Cron'
+{% for module in modules %}
+           {{ module }}: '/extjs/apps/{{ module }}',
+{% endfor %}
         }
     });

@@ -80,9 +80,7 @@ class Users extends \Engine\Mvc\Model implements AuthModelInterface
      */
     public function initialize()
     {
-		$this->belongsTo('core_acl_role_id', 'ExtjsCms\Model\Acl\Role', 'id', array('alias' => 'Role'));
-
-
+		$this->belongsTo('core_acl_role_id', '\ExtjsCms\Model\Acl\Role', 'id', array('alias' => 'Role'));
     }
 
     public function getSource()

@@ -8,15 +8,11 @@
         'Ext.ux.TabScrollerMenu',
         'Ext.ModelManager',
 
-        'ExtjsCms.controller.*',
-        'ExtjsCms.store.*',
-        'ExtjsCms.model.*',
-        'ExtjsCms.view.*',
-        'ExtjsCms.view.*.*',
-
-        'Cron.controller.*',
-        'Cron.store.*',
-        'Cron.model.*',
-        'Cron.view.*',
-        'Cron.view.*.*'
+{% for module in modules %}
+        '{{ module }}.controller.*',
+        '{{ module }}.store.*',
+        '{{ module }}.model.*',
+        '{{ module }}.view.*',
+        '{{ module }}.view.*.*',
+{% endfor %}
     ]);
