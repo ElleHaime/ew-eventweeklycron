@@ -64,15 +64,22 @@ class Module extends BaseModule
     {
         parent::registerServices($di);
 
-
-
+        $adminModulePrefix = ($this->_config->application->adminModulePrefix) ? $this->_config->application->adminModulePrefix : 'admin';
+        define('ADMIN_PREFIX', $adminModulePrefix);
 
         if ($this->_config->application->debug) {
-            $this->_initExtjsApplications();
+            $this->_initExtjsApplications($di);
         }
+
+        $this->_initConfiguration($di);
+        $this->_initTags($di);
     }
 
-    private function _initExtjsApplications()
+    /**
+     *
+     * @param \Phalcon\DiInterface $dependencyInjector
+     */
+    private function _initExtjsApplications($di)
     {
         // load all controllers of all modules for routing system
         $modules = $this->_di->get('modules');
@@ -98,4 +105,46 @@ class Module extends BaseModule
             }
         }
     }
+
+    /**
+     *
+     * @param \Phalcon\DiInterface $dependencyInjector
+     */
+    private function _initConfiguration($di)
+    {
+        $options = $di->getDb()->fetchAll("SELECT * FROM `ap_configuration`");
+        $params = [];
+        foreach ($options as $option) {
+            $params[$option['key']] = $option['value'];
+        }
+        $di->set('configuration', function($key) use ($params) {
+            if (!isset($params[$key])) {
+                return false;
+            }
+            return $params[$key];
+        });
+    }
+
+    /**
+     *
+     * @param \Phalcon\DiInterface $dependencyInjector
+     */
+    private function _initTags($di)
+    {
+        \MegaTag\Core\Configure::set([
+            'models' => [
+                'tag' => 'Ap\Model\Tag',
+                'tag_taxonomy' => 'Ap\Model\Tag\Taxonomy',
+                'entity_tag_taxonomy' => 'Ap\Model\Tag\Entity'
+            ],
+            'entities' => [
+                'app',
+                'article',
+                'app_list'
+            ],
+            'separator' => ','
+        ]);
+
+    }
+
 } 
