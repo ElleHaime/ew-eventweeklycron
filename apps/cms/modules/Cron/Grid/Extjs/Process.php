@@ -43,6 +43,12 @@ class Process extends Base
     protected $_containerConditions = null;
 
     /**
+     * Build store in extjs grid
+     * @var boolean
+     */
+    protected $_buildStore = true;
+
+    /**
      * Initialize grid columns
      *
      * @return void

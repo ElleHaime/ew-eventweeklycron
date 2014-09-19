@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Cron\Models\MessageCenter\Handler;
+namespace MessageCenter\Handler;
 
 use QueueCenter\Queue\HandlerCallbackInterface,
     Library\Traits\DIaware,
@@ -11,7 +11,7 @@ use QueueCenter\Queue\HandlerCallbackInterface,
 
 /**
  * Class McMailNotification
- * @package Cron\Models\MessageCenter\Handler
+ * @package MessageCenter\Handler
  */
 abstract class Base implements HandlerCallbackInterface
 {

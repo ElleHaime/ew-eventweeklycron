@@ -2,15 +2,15 @@
 /**
  * @namespace
  */
-namespace Cron\Models\Mysql\MessageCenter;
+namespace MessageCenter\Model;
 
-use \QueueCenter\Storage\AdapterInterface as QCSAdapterInterface;
+use QueueCenter\Storage\AdapterInterface as QCSAdapterInterface;
 
 /**
- * Class Queue
- * @package Cron\Models\Mysql\MessageCenter
+ * Class Exchange
+ * @package MessageCenter\Model
  */
-class Queue extends \Phalcon\Mvc\Model implements QCSAdapterInterface
+class Exchange extends \Phalcon\Mvc\Model implements QCSAdapterInterface
 {
 
     /**
@@ -63,7 +63,7 @@ class Queue extends \Phalcon\Mvc\Model implements QCSAdapterInterface
 	 */
 	public function getSource()
 	{
-		return 'qc_queue';
+		return 'qc_exchange';
 	}
 
     /**
@@ -96,13 +96,13 @@ class Queue extends \Phalcon\Mvc\Model implements QCSAdapterInterface
      */
     public function add(array $params)
     {
-        $queue = new self();
+        $exchange = new self();
         foreach($params as $key => $value) {
-            $queue->{$key} = $value;
+            $exchange->{$key} = $value;
         }
-        $queue->created = date('Y-m-d H:i:s');
+        $exchange->created = date('Y-m-d H:i:s');
 
-        return $queue->save();
+        return $exchange->save();
     }
 
     /**

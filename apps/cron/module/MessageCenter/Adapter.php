@@ -2,15 +2,15 @@
 /**
  * @namespace
  */
-namespace Cron\Models\MessageCenter;
+namespace MessageCenter;
 
-use \Cron\Models\Mysql\MessageCenter\Exchange,
-    \Cron\Models\Mysql\MessageCenter\Queue,
-    \Cron\Models\Mysql\MessageCenter\QueueToExchange;
+use MessageCenter\Model\Exchange,
+    MessageCenter\Model\Queue,
+    MessageCenter\Model\QueueToExchange;
 
 /**
  * Class Adapter
- * @package Cron\Models\MessageCenter
+ * @package MessageCenter
  */
 class Adapter
 {

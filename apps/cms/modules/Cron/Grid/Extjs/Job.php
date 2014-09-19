@@ -67,6 +67,8 @@ class Job extends Base
 		];
 		
 		//$this->fields['processes']->setAction ('cron-processes','job');
+
+        $this->addAdditional('grid', 'cron', 'process', 'job');
     }
 
     /**

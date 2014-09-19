@@ -3,6 +3,7 @@
         "temafey/phalcon-cron": "dev-master",
         "temafey/phalcon-extjs": "dev-master",
         "temafey/queue-center": "dev-master",
-        "phalcon/devtools": "1.3.*@dev"
+        "phalcon/devtools": "1.3.*@dev",
+        "ruflin/Elastica": "dev-master"
     }
 }

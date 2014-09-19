@@ -16,6 +16,18 @@ class Users extends \Engine\Mvc\Model implements AuthModelInterface
     use UserAcl;
 
     /**
+     * Login model name
+     * @var string
+     */
+    protected static $_loginCredential = 'email';
+
+    /**
+     * Password model name
+     * @var string
+     */
+    protected static $_passwordCredential = 'password';
+
+    /**
      *
      * @var integer
      */

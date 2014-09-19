@@ -1,0 +1,60 @@
+<?php
+/**
+ * @namespace
+ */
+namespace Event\Model;
+
+/**
+ * Class event.
+ *
+ * @category   Module
+ * @package    Event
+ * @subpackage Model
+ */
+class EventMember extends \Engine\Mvc\Model
+{
+    /**
+     * Default name column
+     * @var string
+     */
+    protected $_nameExpr = 'event_id';
+
+    /**
+     * Default order column
+     * @var string
+     */
+    protected $_orderExpr = 'member_id';
+
+    /**
+     *
+     * @var integer
+     */
+    public $id;
+     
+    /**
+     *
+     * @var integer
+     */
+    public $event_id;
+     
+    /**
+     *
+     * @var integer
+     */
+    public $member_id;
+     
+    /**
+     *
+     * @var string
+     */
+    public $member_status;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo("member_id", "\Event\Model\Member", "id", ['alias' => 'Member']);
+        $this->belongsTo("event_id", "\Event\Model\Event", "id", ['alias' => 'Event']);
+    }
+}

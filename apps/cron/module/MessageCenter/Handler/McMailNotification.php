@@ -2,11 +2,11 @@
 /**
  * @namespace
  */
-namespace Cron\Models\MessageCenter\Handler;
+namespace MessageCenter\Handler;
 
 /**
  * Class McMailNotification
- * @package Cron\Models\MessageCenter\Handler
+ * @package MessageCenter\Handler
  */
 class McMailNotification extends Base
 {

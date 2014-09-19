@@ -68,10 +68,12 @@ class Users extends Base
     {
 		$this->_fields = [
 			'id'        => new Field\Primary('Id'),
+            'email'     => new Field\Mail('Email'),
             'name'      => new Field\Name('Name'),
             'password'  => new Field\Password('Password', null, $this->_di->get('security')),
             'confirm'   => new Field\PasswordConfirm('Password confirm', 'password'),
-			'role'      => new Field\ManyToOne('Role', '\ExtjsCms\Model\Acl\Role')
+			'role'      => new Field\ManyToOne('Role', '\ExtjsCms\Model\Acl\Role'),
+            'status'    => new Field\ArrayToSelect("Status", 'status', ['1' => 'Active', '0' => 'Not active'])
 		];
     }
 }

@@ -51,8 +51,10 @@ class Users extends Base
     {
 		$this->_columns = [
 			'id'      => new Column\Primary('Id'),
+            'email'   => new Column\Text('Email'),
 			'name'    => new Column\Name('Name'),
-			'role'    => new Column\JoinOne('Role', '\ExtjsCms\Model\Acl\Role')
+			'role'    => new Column\JoinOne('Role', '\ExtjsCms\Model\Acl\Role'),
+            'status'  => new Column\Collection("Status", 'status', ['1' => 'Active', '0' => 'Not active'])
 		];
     }
 
@@ -80,8 +82,10 @@ class Users extends Base
                 ]
 			]),
 			'id'   => new Field\Primary('Id'),
+            'email' => new Field\Standart('Email'),
             'name' => new Field\Name('Name'),
-			'role' => new Field\Join('Role', '\ExtjsCms\Model\Acl\Role')
+			'role' => new Field\Join('Role', '\ExtjsCms\Model\Acl\Role'),
+            'status'  => new Field\ArrayToSelect('Status', 'status', ['1' => 'Active', '0' => 'Not active'])
         ]);
     }
 }

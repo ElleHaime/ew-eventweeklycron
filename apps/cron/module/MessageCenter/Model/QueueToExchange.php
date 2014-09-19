@@ -2,15 +2,15 @@
 /**
  * @namespace
  */
-namespace Cron\Models\Mysql\MessageCenter;
+namespace MessageCenter\Model;
 
-use \QueueCenter\Storage\AdapterInterface as QCSAdapterInterface;
+use QueueCenter\Storage\AdapterInterface as QCSAdapterInterface;
 
 /**
- * Class Exchange
- * @package Cron\Models\Mysql\MessageCenter
+ * Class QueueToExchange
+ * @package MessageCenter\Model
  */
-class Exchange extends \Phalcon\Mvc\Model implements QCSAdapterInterface
+class QueueToExchange extends \Phalcon\Mvc\Model implements QCSAdapterInterface
 {
 
     /**
@@ -23,13 +23,19 @@ class Exchange extends \Phalcon\Mvc\Model implements QCSAdapterInterface
      *
      * @var integer
      */
-    public $user_id;
+    public $queue_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $exchange_id;
 
     /**
      *
      * @var string
      */
-    public $name;
+    public $routing_key;
 
     /**
      *
@@ -38,16 +44,18 @@ class Exchange extends \Phalcon\Mvc\Model implements QCSAdapterInterface
     public $created;
 
     /**
-     * Independent Column Mapping.
+     * Independent Field Mapping.
      */
     public function columnMap()
     {
         return [
             'id' => 'id',
-            'user_id' => 'user_id',
-            'name' => 'name',
+            'queue_id' => 'queue_id',
+            'exchange_id' => 'exchange_id',
+            'routing_key' => 'routing_key',
             'created' => 'created'
         ];
+
     }
 
     /**
@@ -63,7 +71,7 @@ class Exchange extends \Phalcon\Mvc\Model implements QCSAdapterInterface
 	 */
 	public function getSource()
 	{
-		return 'qc_exchange';
+		return 'qc_queue_to_exchange';
 	}
 
     /**
@@ -96,13 +104,13 @@ class Exchange extends \Phalcon\Mvc\Model implements QCSAdapterInterface
      */
     public function add(array $params)
     {
-        $exchange = new self();
+        $queueToExchange = new self();
         foreach($params as $key => $value) {
-            $exchange->{$key} = $value;
+            $queueToExchange->{$key} = $value;
         }
-        $exchange->created = date('Y-m-d H:i:s');
+        $queueToExchange->created = date('Y-m-d H:i:s');
 
-        return $exchange->save();
+        return $queueToExchange->save();
     }
 
     /**
