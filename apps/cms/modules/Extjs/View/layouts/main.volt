@@ -13,6 +13,9 @@
     {{ assets.outputCss() }}
 </head>
 <script type="text/javascript">
+
+    var ADMIN_PREFIX = '{{ ADMIN_PREFIX }}';
+    
     Ext.Loader.setConfig({enabled: true});
 
     {% include "layouts/config.volt" %}
