@@ -1,9 +1,10 @@
 apps/cms/config/engine.php
-apps/cron/config/config.php
+apps/cron/config/
 vendor/
 public/extjs/apps
 public/extjs/lib
 apps/cms/var/*
+apps/cron/data/*
 composer.lock
 
 #################

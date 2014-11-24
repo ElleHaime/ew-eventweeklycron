@@ -26,7 +26,7 @@ class SearchTask extends \Phalcon\CLI\Task
 
 	public function reindexAction()
 	{
-		$test = new \Cron\Job\Search\Index\Grid($this->getDI());
+		$test = new \Search\Job\Grid($this->getDI());
 		$test->process($this->_jobId, $this->_parentHash, $this->_hash);
 	}
 }

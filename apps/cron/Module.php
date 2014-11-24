@@ -6,16 +6,15 @@ use Phalcon\Mvc\ModuleDefinitionInterface;
 class Module implements ModuleDefinitionInterface
 {
 
-	/**
-	 * Register a specific autoloader for the module
-	 */
-	public function registerAutoloaders()
-	{
-		$loader = new \Phalcon\Loader();
+    /**
+     * Register a specific autoloader for the module
+     */
+    public function registerAutoloaders()
+    {
+        $loader = new \Phalcon\Loader();
 
         $namespaces = [
             'Cron\Task'	    => CRON_PATH.'/task/',
-            'Cron\Job'	    => CRON_PATH.'/job/',
             'Engine'        => ENGINE_PATH
         ];
 
@@ -30,35 +29,58 @@ class Module implements ModuleDefinitionInterface
         }
         $loader->registerNamespaces($namespaces);
 
-		$loader->register();
-	}
+        $loader->register();
+    }
 
-	/**
-	 * Register specific services for the module
+    /**
+     * Register specific services for the module
      *
      * @param $di
      */
-	public function registerServices($di)
-	{
-		//Registering a dispatcher
-		
-		$di->setShared('dispatcher', function() {
-			$dispatcher = new \Phalcon\CLI\Dispatcher();
-			$dispatcher->setDefaultNamespace("Cron\Task\\");
-			
-			return $dispatcher;
-		});
-		
-		$config = include("config/config.php");
-		$di->set('config', $config);
+    public function registerServices($di)
+    {
+        //Registering a dispatcher
 
+        $di->setShared('dispatcher', function() {
+            $dispatcher = new \Phalcon\CLI\Dispatcher();
+            $dispatcher->setDefaultNamespace("Cron\Task\\");
+
+            return $dispatcher;
+        });
+
+        $this->registerConfiguration($di);
         $this->registerEnvironment($di);
         $this->registerCronEnvironment($di);
         $this->registerDatabase($di);
         $this->registerElastica($di);
         $this->registerMessageCenter($di);
         $this->registerMailCenter($di);
-	}
+    }
+
+    /**
+     * Set configuration to Dependency Injection
+     *
+     * @param $di
+     * @throws \Exception
+     */
+    protected function registerConfiguration($di)
+    {
+        //Read the annotations from controllers
+        $configPath = CRON_PATH.'/config';
+        if (!file_exists($configPath)) {
+            throw new \Exception('Config dir not found!');
+        }
+        $globalConfig = new \Phalcon\Config();
+        $files = scandir($configPath); // get all file names
+        foreach ($files as $file) { // iterate files
+            if ($file == "." || $file == ".." || $file[0] == "_") {
+                continue;
+            }
+            $config = include($configPath."/".$file);
+            $globalConfig->merge($config);
+        }
+        $di->set('config', $globalConfig);
+    }
 
     /**
      * Register cron environment
@@ -71,7 +93,13 @@ class Module implements ModuleDefinitionInterface
 
         $di->set('thumperConnection', function() use ($config) {
             $connections = [
-                'default' => new \PhpAmqpLib\Connection\AMQPLazyConnection($config->rabbitmq->host, $config->rabbitmq->port, $config->rabbitmq->username, $config->rabbitmq->password, $config->rabbitmq->vhost)
+                'default' => new \PhpAmqpLib\Connection\AMQPLazyConnection(
+                    $config->rabbitmq->host,
+                    $config->rabbitmq->port,
+                    $config->rabbitmq->username,
+                    $config->rabbitmq->password,
+                    $config->rabbitmq->vhost
+                )
             ];
             return new \Thumper\ConnectionRegistry($connections, 'default');
         });
@@ -186,7 +214,8 @@ class Module implements ModuleDefinitionInterface
         foreach ($config->messageCenter as $env => $options) {
             $options = $options->toArray();
             $key = "messageCenter_".$env;
-            $di->set($key, function() use ($key, $options, $di) {
+            $di->set($key, function() use ($env, $key, $options, $di) {
+                $environment = $di->get($env);
                 $config = new \stdClass();
                 $config->adapter = $options['adapter'];
                 $config->host = $options['host'];
@@ -199,9 +228,9 @@ class Module implements ModuleDefinitionInterface
                 $config->exchangeType = $options['exchangeType'];
                 $config->exchangePrefix = $options['exchangePrefix'];
                 $config->queuePrefix = $options['queuePrefix'];
-                $config->connection = $options['connection'];
-                
-                return new \Cron\Models\MessageCenter\Adapter($config);
+                $config->connection = $environment('database');
+
+                return new \MessageCenter\Adapter($config);
             });
         }
 
@@ -221,18 +250,15 @@ class Module implements ModuleDefinitionInterface
             $key = "mailCenter_".$env;
             $di->set($key, function() use ($key, $options, $di) {
                 $config = new \stdClass();
-                $config->adapter = $options['adapter'];
+                $config->siteurl = $options['siteurl'];
                 $config->host = $options['host'];
                 $config->port = $options['port'];
+                $config->dbname = $options['dbname'];
                 $config->username = $options['username'];
                 $config->password = $options['password'];
-                $config->vhost = $options['vhost'];
-                $config->type = $options['type'];
-                $config->class = $options['class'];
-                $config->exchangeType = $options['exchangeType'];
-                $config->exchangePrefix = $options['exchangePrefix'];
-                $config->queuePrefix = $options['queuePrefix'];
-                $config->connection = $options['connection'];
+                $config->path = $options['path'];
+                $config->options = $options['options'];
+                $config->affiliateId = $options['affiliateId'];
 
                 return new \Cron\Models\MessageCenter\Adapter($config);
             });

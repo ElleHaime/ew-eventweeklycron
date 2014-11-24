@@ -76,6 +76,9 @@ abstract class Base extends Executable
      */
     protected function _getProcessId($hash)
     {
+        if (!$hash) {
+            return false;
+        }
         $process = $this->_findByHash($hash);
         return $process->id;
     }

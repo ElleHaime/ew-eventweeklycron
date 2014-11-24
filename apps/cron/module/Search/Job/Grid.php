@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Cron\Job\Search\Index;
+namespace Search\Job;
 
 use Cron\Job\Base,
     CronManager\Tools\Observer\Stdout as Observer,

@@ -52,14 +52,37 @@ class Grid
     public function reindex()
     {
         $environment = $this->getDi()->get($this->_env);
-        $adapter = $environment('elastic');
+        $searchAdapter = $environment('elastic');
         $modelAdapter = $environment('database');
-        $grid = new $this->_grid([], $this->getDi(), null, ['adapter' => $modelAdapter]);
-        $indexer = new \Engine\Search\Elasticsearch\Indexer($this->_type, $grid, $adapter);
+
+        $location = new \Event\Model\Location();
+        $location->setReadConnectionService($modelAdapter);
+        $locations = $location->find()->toArray();
+        $first = true;
+        foreach ($locations as $location) {
+            $params = ['location' => $location['id']];
+            $this->_index($params, $modelAdapter, $searchAdapter, $first);
+            $first = false;
+        }
+    }
+
+    /**
+     * Indexing with params
+     *
+     * @param string $location
+     * @param string $modelAdapter
+     * @param string $searchAdapter
+     */
+    protected function _index($params, $modelAdapter, $searchAdapter, $removeIndex = false)
+    {
+        var_dump($params);
+        $grid = new $this->_grid($params, $this->getDi(), null, ['adapter' => $modelAdapter]);
+        $indexer = new \Event\Search\Elasticsearch\Indexer($this->_type, $grid, $searchAdapter);
         $indexer->setDi($this->getDi());
-        $indexer->deleteIndex();
-        $indexer->createIndex();
+        if ($removeIndex) {
+            $indexer->deleteIndex();
+            $indexer->createIndex();
+        }
         $indexer->setData();
     }
 }
-

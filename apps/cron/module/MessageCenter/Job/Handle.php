@@ -4,7 +4,7 @@
  */
 namespace Cron\Job\MessageCenter;
 
-use Cron\Models\MessageCenter\Handler;
+use MessageCenter\Handler;
 
 /**
  * Class Handle
@@ -19,14 +19,14 @@ class Handle extends Init
         $this->_message = "Start handle process";
         $this->notify();
 
-        $MessageCenter = new \Cron\Models\MessageCenter\Adapter($this->_options);
+        $MessageCenter = new \MessageCenter\Adapter($this->_options);
         $exchangeName = $MessageCenter->generateUserExchangeName(0, 'application');
         $exchange = $MessageCenter->getStorageExchange()->getByName($exchangeName);
 
         $handler = $MessageCenter->getHandler();
         $handle = new Handler\McMailNotification();
         $handle->setDi($this->getDi());
-        $handle->addObserver(new \Library\Tools\Observer\Stdout());
+        $handle->addObserver(new \CronManager\Tools\Observer\Stdout());
         $handler->addHandler('mail-notification', $handle);
 
         $handler->handle(null, null, $exchange['id']);

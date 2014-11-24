@@ -7,7 +7,7 @@ namespace Event\Grid\Search;
 use
     Engine\Crud\Grid,
     Engine\Crud\Grid\Column,
-    Engine\Crud\Grid\Filter\Search\Elasticsearch as Filter,
+    Engine\Crud\Grid\Filter as Filter,
     Engine\Crud\Grid\Filter\Field,
     Engine\Filter\SearchFilterInterface as Criteria;
 
@@ -24,7 +24,7 @@ class Event extends Grid
      * Container adapter class name
      * @var string
      */
-    protected $_containerAdapter = 'Mysql\Elasticsearch';
+    protected $_containerAdapter = 'Mysql';
 
     /**
      * Grid title
