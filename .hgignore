@@ -1,5 +1,5 @@
 apps/cms/config/engine.php
-apps/cron/config/
+apps/cron/config/*
 vendor/
 public/extjs/apps
 public/extjs/lib
