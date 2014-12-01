@@ -37,24 +37,24 @@ class Module implements ModuleDefinitionInterface
      *
      * @param $di
      */
-    public function registerServices($di)
+    public function registerServices($dependencyInjector)
     {
         //Registering a dispatcher
 
-        $di->setShared('dispatcher', function() {
+        $dependencyInjector->setShared('dispatcher', function() {
             $dispatcher = new \Phalcon\CLI\Dispatcher();
             $dispatcher->setDefaultNamespace("Cron\Task\\");
 
             return $dispatcher;
         });
 
-        $this->registerConfiguration($di);
-        $this->registerEnvironment($di);
-        $this->registerCronEnvironment($di);
-        $this->registerDatabase($di);
-        $this->registerElastica($di);
-        $this->registerMessageCenter($di);
-        $this->registerMailCenter($di);
+        $this->registerConfiguration($dependencyInjector);
+        $this->registerEnvironment($dependencyInjector);
+        $this->registerCronEnvironment($dependencyInjector);
+        $this->registerDatabase($dependencyInjector);
+        $this->registerElastica($dependencyInjector);
+        $this->registerMessageCenter($dependencyInjector);
+        $this->registerMailCenter($dependencyInjector);
     }
 
     /**

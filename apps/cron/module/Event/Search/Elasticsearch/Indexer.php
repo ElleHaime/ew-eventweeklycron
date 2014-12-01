@@ -65,6 +65,7 @@ class Indexer extends BaseIndexer
         foreach ($columns as $column) {
             $column->updateDataSource($dataSource);
         }
+
         $filter = $grid->getFilter();
         $filter->setParams($params);
         $filter->applyFilters($dataSource);

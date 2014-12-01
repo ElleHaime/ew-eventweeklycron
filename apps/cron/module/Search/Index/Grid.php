@@ -59,10 +59,16 @@ class Grid
         $location->setReadConnectionService($modelAdapter);
         $locations = $location->find()->toArray();
         $first = true;
+        $mem_usage = memory_get_usage();
+        $this->_message = "Use memory ".round($mem_usage/1048576,2)." megabytes\n\n";
+        $this->notify();
         foreach ($locations as $location) {
             $params = ['location' => $location['id']];
             $this->_index($params, $modelAdapter, $searchAdapter, $first);
             $first = false;
+            $mem_usage = memory_get_usage();
+            $this->_message = "Use memory ".round($mem_usage/1048576,2)." megabytes\n\n";
+            $this->notify();
         }
     }
 
@@ -75,7 +81,6 @@ class Grid
      */
     protected function _index($params, $modelAdapter, $searchAdapter, $removeIndex = false)
     {
-        var_dump($params);
         $grid = new $this->_grid($params, $this->getDi(), null, ['adapter' => $modelAdapter]);
         $indexer = new \Event\Search\Elasticsearch\Indexer($this->_type, $grid, $searchAdapter);
         $indexer->setDi($this->getDi());
