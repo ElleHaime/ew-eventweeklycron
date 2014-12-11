@@ -119,7 +119,6 @@ class Indexer extends BaseIndexer
     {
         $primaryKey = $grid->getPrimaryColumn()->getName();
         $filterFields = $grid->getFilter()->getFields();
-        $gridColums = $grid->getColumns();
 
         $item = [];
         foreach ($filterFields as $key => $field) {
@@ -166,6 +165,7 @@ class Indexer extends BaseIndexer
         $name = $field->getName();
         $path = $field->getPath();
         $primaryKey = $grid->getPrimaryColumn()->getName();
+        $gridColums = $grid->getColumns();
 
 
         // if count of path models more than one, means that is many to many relations
