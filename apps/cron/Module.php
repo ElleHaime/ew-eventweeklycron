@@ -55,6 +55,7 @@ class Module implements ModuleDefinitionInterface
         $this->registerElastica($dependencyInjector);
         $this->registerMessageCenter($dependencyInjector);
         $this->registerMailCenter($dependencyInjector);
+        $this->registerSharding($dependencyInjector);
     }
 
     /**
@@ -286,6 +287,27 @@ class Module implements ModuleDefinitionInterface
                 return new \Engine\Search\Elasticsearch\Client($config);
             });
         }
+
+    }
+
+    /**
+     * Register Sharding config
+     *
+     * @param $di
+     */
+    protected function registerSharding($di)
+    {
+        $config =$di->get('config');
+
+        $shardingConfig = $config->shardingConfig;
+        $di->set('shardingConfig', function() use ($shardingConfig) {
+            return $shardingConfig;
+        });
+
+        $shardingServiceConfig = $config->shardingConfigServise;
+        $di->set('shardingServiceConfig', function() use ($shardingServiceConfig) {
+            return $shardingServiceConfig;
+        });
 
     }
 

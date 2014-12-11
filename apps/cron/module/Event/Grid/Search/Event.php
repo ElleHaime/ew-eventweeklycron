@@ -99,7 +99,9 @@ class Event extends Grid
             'name' => new Field\Name("Name"),
             'desc' => new Field\Standart("Description", 'description'),
             'location' => new Field\Join("Location", "\Event\Model\Location"),
+            'campaign' => new Field\Join("Campaign", "\Event\Model\Campaign"),
             'category' => new Field\Join("Category", "\Event\Model\Category", false, null, ["\Event\Model\EventCategory", "\Event\Model\Category"]),
+            'member' => new Field\Join("Member", "\Event\Model\Member"),
             'tag' => new Field\Join("Tags", "\Event\Model\Tag", false, null, ["\Event\Model\EventTag", "\Event\Model\Tag"]),
             'start_date' => new Field\Date('Event start', null, null, Criteria::CRITERIA_MORE),
             'submit' => new Field\Submit('Apply')

@@ -4,6 +4,8 @@
  */
 namespace Event\Model;
 
+use Sharding\Core\Env\Phalcon as Sharding;
+
 /**
  * Class event.
  *
