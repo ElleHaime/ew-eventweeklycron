@@ -68,6 +68,9 @@ class Indexer extends BaseIndexer
         }
 
         $filter = $grid->getFilter();
+        if ($params['location'] == 0) {
+            $params['location'] = null;
+        }
         $filter->setParams($params);
         $filter->applyFilters($dataSource);
 
@@ -234,9 +237,11 @@ class Indexer extends BaseIndexer
 
                 $savedData = $db->fetchAll($sql);
                 //$savedData = (($result = $queryBuilder->getQuery()->execute()) === null) ? [] : $result->toArray();
-                $item[$key] = \Engine\Tools\Arrays::assocToLinearArray($savedData, 'name');
-                $item[$key."_id"] = \Engine\Tools\Arrays::assocToLinearArray($savedData, 'id');
-                //$item[$key] = \Engine\Tools\Arrays::resultArrayToJsonType($savedData);
+                if ($savedData) {
+                    $item[$key] = \Engine\Tools\Arrays::assocToLinearArray($savedData, 'name');
+                    $item[$key . "_id"] = \Engine\Tools\Arrays::assocToLinearArray($savedData, 'id');
+                    //$item[$key] = \Engine\Tools\Arrays::resultArrayToJsonType($savedData);
+                }
             }
         } else {
             if (
@@ -246,11 +251,15 @@ class Indexer extends BaseIndexer
                 ) &&
                 ($column instanceof \Engine\Crud\Grid\Column\JoinOne)
             ) {
-                $item[$key] = [];
-                $item[$key] = $data[$key];
-                $item[$key."_id"] = $data[$key."_".\Engine\Mvc\Model::JOIN_PRIMARY_KEY_PREFIX];
+                if (null !== $data[$key]) {
+                    $item[$key] = [];
+                    $item[$key] = $data[$key];
+                    $item[$key . "_id"] = $data[$key . "_" . \Engine\Mvc\Model::JOIN_PRIMARY_KEY_PREFIX];
+                }
             } else {
-                $item[$key] = $data[$key];
+                if (null !== $data[$key]) {
+                    $item[$key] = $data[$key];
+                }
             }
         }
     }

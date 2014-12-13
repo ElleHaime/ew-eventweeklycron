@@ -1,8 +1,8 @@
 {
     "require": {
-        "temafey/phalcon-engine": "0.7.0",
+        "temafey/phalcon-engine": "0.7.2",
         "temafey/phalcon-cron": "0.7.0",
-        "temafey/phalcon-extjs": "0.7.6.3",
+        "temafey/phalcon-extjs": "0.7.6.4",
         "temafey/queue-center": "1.2.1",
         "phalcon/devtools": "1.3.*@dev",
         "slava-basko/mega-curl": "dev-master",
