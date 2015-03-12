@@ -79,7 +79,12 @@ class Indexer extends BaseIndexer
         $i = 0;
         do {
             foreach ($data['data'] as $values) {
-                $this->addItem($values->toArray(), $grid, $shardCriteria);
+                $values = $values->toArray();
+                var_dump(count($values));
+                $response = $this->addItem($values, $grid, $shardCriteria);
+                if ($response->hasError()) {
+                    var_dump($response->getError());
+                }
             }
             ++$i;
             $grid->clearData();
