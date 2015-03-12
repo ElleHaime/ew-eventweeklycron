@@ -103,8 +103,7 @@ class Event extends Grid
             'category' => new Field\Join("Category", "\Event\Model\Category", false, null, ["\Event\Model\EventCategory", "\Event\Model\Category"]),
             'member' => new Field\Join("Member", "\Event\Model\Member"),
             'tag' => new Field\Join("Tags", "\Event\Model\Tag", false, null, ["\Event\Model\EventTag", "\Event\Model\Tag"]),
-            'start_date' => new Field\Date('Event start', null, null, Criteria::CRITERIA_MORE),
-            'submit' => new Field\Submit('Apply')
+            'start_date' => new Field\Date('Event start', null, null, Criteria::CRITERIA_MORE)
         ], null, 'get');
 
         //$tag = $this->_filter->getFieldByKey('tag');

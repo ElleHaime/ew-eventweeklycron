@@ -82,7 +82,7 @@ class Grid
     protected function _index($params, $modelAdapter, $searchAdapter, $removeIndex = false)
     {
         $grid = new $this->_grid($params, $this->getDi(), null, ['adapter' => $modelAdapter]);
-        $indexer = new \Event\Search\Elasticsearch\Indexer($this->_type, $grid, $searchAdapter);
+        $indexer = new \Event\Search\Elasticsearch\Indexer($grid, $searchAdapter);
         $indexer->setDi($this->getDi());
         if ($removeIndex) {
             $indexer->deleteIndex();

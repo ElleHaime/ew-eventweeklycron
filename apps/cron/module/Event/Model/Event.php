@@ -185,4 +185,9 @@ class Event extends \Engine\Mvc\Model
             });
         }
     }
+
+    public function getSearchSource()
+    {
+        return 'event';
+    }
 }
