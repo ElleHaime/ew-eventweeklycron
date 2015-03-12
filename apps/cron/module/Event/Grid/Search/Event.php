@@ -106,8 +106,7 @@ class Event extends Grid
             'start_date' => new Field\Date('Event start', null, null, Criteria::CRITERIA_MORE),
         	'latitude' => new Field\Standart('Latitude', 'latitude', null, Criteria::CRITERIA_EQ),
         	'longitude' => new Field\Standart('Longitude', 'longitude', null, Criteria::CRITERIA_EQ),
-        	'address' => new Field\Standart('Address', 'address', null, Criteria::CRITERIA_LIKE),
-        	'submit' => new Field\Submit('Apply')
+        	'address' => new Field\Standart('Address', 'address', null, Criteria::CRITERIA_LIKE)
         ], null, 'get');
 
         //$tag = $this->_filter->getFieldByKey('tag');
