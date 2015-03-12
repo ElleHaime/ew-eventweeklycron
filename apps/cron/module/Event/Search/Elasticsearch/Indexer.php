@@ -30,9 +30,12 @@ class Indexer extends BaseIndexer
     /**
      * Add data from grid to search index
      *
-     * @return void
+     * @param integer $page
+     * @param integer $pages
+     * @param integer $breakPage
+     * @return array
      */
-    public function setData()
+    public function setData($page = 0, $pages = false, $breakPage = 0)
     {
         $type = $this->getType();
         if ($this->_deleteType && $type->exists()) {
