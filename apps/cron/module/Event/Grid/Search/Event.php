@@ -95,6 +95,7 @@ class Event extends Grid
                 'location'              => Criteria::CRITERIA_LIKE,
                 'category'              => Criteria::CRITERIA_LIKE,
                 'tag'                   => Criteria::CRITERIA_LIKE,
+            	'id'          			=> Criteria::CRITERIA_EQ
             ]),
             'name' => new Field\Name("Name"),
             'desc' => new Field\Standart("Description", 'description'),
@@ -106,7 +107,8 @@ class Event extends Grid
             'start_date' => new Field\Date('Event start', null, null, Criteria::CRITERIA_MORE),
         	'latitude' => new Field\Standart('Latitude', 'latitude', null, Criteria::CRITERIA_EQ),
         	'longitude' => new Field\Standart('Longitude', 'longitude', null, Criteria::CRITERIA_EQ),
-        	'address' => new Field\Standart('Address', 'address', null, Criteria::CRITERIA_LIKE)
+        	'address' => new Field\Standart('Address', 'address', null, Criteria::CRITERIA_LIKE),
+        	'logo' => new Field\Standart('Logo', 'logo', null, Criteria::CRITERIA_EQ)
         ], null, 'get');
 
         //$tag = $this->_filter->getFieldByKey('tag');
