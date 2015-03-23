@@ -70,7 +70,7 @@ class Process extends Base
 			'attempt' => new Column\Text('Attempt')
 		];
 
-		//$this->fields['logs']->setAction ('cron-logs','process');
+        $this->addAdditional('grid', 'cron', 'log', 'process');
     }
 
     /**

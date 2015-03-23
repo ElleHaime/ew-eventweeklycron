@@ -83,7 +83,6 @@ class Indexer extends BaseIndexer
         do {
             foreach ($data['data'] as $values) {
                 $values = $values->toArray();
-                var_dump(count($values));
                 $response = $this->addItem($values, $grid, $shardCriteria);
                 if ($response->hasError()) {
                     var_dump($response->getError());

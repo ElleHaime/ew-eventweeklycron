@@ -88,7 +88,7 @@ class Log extends Base
                     ]
                 ]
 			]),
-			'job' => new Field\Join('Jobs', '\Cron\Model\Job', ['\Cron\Model\Process','\Cron\Model\Job']),
+			'job' => new Field\Join('Jobs', '\Cron\Model\Job', false, null, ['\Cron\Model\Process','\Cron\Model\Job']),
             'process' => new Field\Join('Processes', '\Cron\Model\Process')
 		]);
 	}
