@@ -23,7 +23,7 @@ abstract class Base extends Executable
      */
     protected function _check($hash, $status)
     {
-        return (Process::count("hash = '".$hash."' AND status = '".$status."'") == 1)  ? true : false;
+        return (Process::count(["hash = :hash: AND status = :status:", 'bind' => ['hash' => $hash, 'status' => $status]]) == 1)  ? true : false;
     }
 
     /**
@@ -33,11 +33,11 @@ abstract class Base extends Executable
      */
     protected function _findByHash($hash, $count = 1)
     {
-        $process = Process::findFirst("hash = '".$hash."'");
+        $process = Process::findFirst(["hash = ?", 'bind' => [$hash]]);
         if (!$process) {
             $db = $this->_di->get('db');
             $db->connect();
-            $process = Process::findFirst("hash = '".$hash."'");
+            $process = Process::findFirst(["hash = ?", 'bind' => [$hash]]);
             if (!$process) {
                 $this->_message = "Process by hash '".$hash."' not found, try again!";
                 $this->notify();
