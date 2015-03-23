@@ -63,6 +63,8 @@ class Grid
         $this->_message = "Use memory ".round($mem_usage/1048576,2)." megabytes\n\n";
         $this->notify();
         foreach ($locations as $location) {
+            $this->_message = "Process events by location {$location['city']}('{$location['id']}')";
+            $this->notify();
             $params = ['location' => $location['id']];
             $this->_index($params, $modelAdapter, $searchAdapter, $first);
             $first = false;

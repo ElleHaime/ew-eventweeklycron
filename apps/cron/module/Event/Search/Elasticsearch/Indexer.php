@@ -78,6 +78,7 @@ class Indexer extends BaseIndexer
         $filter->applyFilters($dataSource);
 
         $data = $container->getData($dataSource);
+        echo "... found ".$data['total_items']." events\n";
         $pages = $data['pages'];
         $i = 0;
         do {
