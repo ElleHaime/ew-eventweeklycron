@@ -48,6 +48,8 @@ class Grid
 
     /**
      * Reindex
+     *
+     * @return boolean
      */
     public function reindex()
     {
@@ -72,6 +74,8 @@ class Grid
             $this->_message = "Use memory ".round($mem_usage/1048576,2)." megabytes\n\n";
             $this->notify();
         }
+
+        return true;
     }
 
     /**
