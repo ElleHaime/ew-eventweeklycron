@@ -106,6 +106,7 @@ class Event extends Grid
             'member' => new Field\Join("Member", "\Event\Model\Member"),
             'tag' => new Field\Join("Tags", "\Event\Model\Tag", false, null, ["\Event\Model\EventTag", "\Event\Model\Tag"]),
             'start_date' => new Field\Date('Event start', null, null, Criteria::CRITERIA_MORE),
+            'end_date' => new Field\Date('End start', null, null, Criteria::CRITERIA_LESS),
         	'latitude' => new Field\Standart('Latitude', 'latitude', null, Criteria::CRITERIA_EQ),
         	'longitude' => new Field\Standart('Longitude', 'longitude', null, Criteria::CRITERIA_EQ),
         	'address' => new Field\Standart('Address', 'address', null, Criteria::CRITERIA_LIKE),
@@ -113,6 +114,7 @@ class Event extends Grid
         ], null, 'get');
 
         $this->_filter->getFieldByKey('start_date')->setValueType(AbstractFilter::VALUE_TYPE_DATE);
+        $this->_filter->getFieldByKey('end_date')->setValueType(AbstractFilter::VALUE_TYPE_DATE);
 
         //$tag = $this->_filter->getFieldByKey('tag');
         //$tag->category = "\Event\Model\Category";
