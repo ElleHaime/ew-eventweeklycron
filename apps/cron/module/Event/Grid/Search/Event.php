@@ -111,6 +111,8 @@ class Event extends Grid
         	'logo' => new Field\Standart('Logo', 'logo', null, Criteria::CRITERIA_EQ)
         ], null, 'get');
 
+        $this->_filter->getFieldByKey('start_date')->setValueType(AbstractFilter::VALUE_TYPE_DATE);
+
         //$tag = $this->_filter->getFieldByKey('tag');
         //$tag->category = "\Event\Model\Category";
     }

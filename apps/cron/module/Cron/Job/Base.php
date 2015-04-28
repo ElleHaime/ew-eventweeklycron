@@ -33,11 +33,11 @@ abstract class Base extends Executable
      */
     protected function _findByHash($hash, $count = 1)
     {
-        $process = Process::findFirst(["hash = ?", 'bind' => [$hash]]);
+        $process = Process::findFirst(["hash = :hash:", 'bind' => ['hash' => $hash]]);
         if (!$process) {
             $db = $this->_di->get('db');
             $db->connect();
-            $process = Process::findFirst(["hash = ?", 'bind' => [$hash]]);
+            $process = Process::findFirst(["hash = :hash:", 'bind' => ['hash' => $hash]]);
             if (!$process) {
                 $this->_message = "Process by hash '".$hash."' not found, try again!";
                 $this->notify();
