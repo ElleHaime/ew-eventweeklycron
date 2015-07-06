@@ -59,11 +59,11 @@ class Indexer extends BaseIndexer
             $column->updateContainer($container);
         }
 
+        $grid->getData();
         $params = $grid->getFilterParams();
         $model = $container->getModel();
         $shardCriteria = $params['location'];
         $model->setShardByCriteria($shardCriteria);
-
         $dataSource = $container->getDataSource();
 
         foreach ($columns as $column) {
@@ -83,7 +83,8 @@ class Indexer extends BaseIndexer
         $i = 0;
         do {
             foreach ($data['data'] as $values) {
-                $values = $values->toArray();
+                //$values = $values->toArray();
+                $values = (array)$values;
                 $response = $this->addItem($values, $grid, $shardCriteria);
                 if ($response->hasError()) {
                     var_dump($response->getError());

@@ -173,12 +173,16 @@ class Event extends \Engine\Mvc\Model
         $di = $this->getDI();
         $connections = (array) $this->app->config->connections;
         foreach($connections as $key => $options) {
+        	if (!isset($options -> port)) {
+        		$options -> port = 3306;
+        	}
             $di->set($key, function () use ($options) {
                 $db = new \Phalcon\Db\Adapter\Pdo\Mysql([
                     "host" => $options->host,
                     "username" => $options->user,
                     "password" => $options->password,
-                    "dbname" => $options->database
+                    "dbname" => $options->database,
+                	"port" => $options->port
                 ]);
 
                 return $db;

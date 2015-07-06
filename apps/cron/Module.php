@@ -9,7 +9,7 @@ class Module implements ModuleDefinitionInterface
     /**
      * Register a specific autoloader for the module
      */
-    public function registerAutoloaders()
+    public function registerAutoloaders(\Phalcon\DiInterface $dependencyInjector = NULL)
     {
         $loader = new \Phalcon\Loader();
 
@@ -37,7 +37,7 @@ class Module implements ModuleDefinitionInterface
      *
      * @param $di
      */
-    public function registerServices($dependencyInjector)
+    public function registerServices(\Phalcon\DiInterface $dependencyInjector)
     {
         //Registering a dispatcher
 
@@ -152,13 +152,17 @@ class Module implements ModuleDefinitionInterface
 
         foreach ($config->database as $env => $options) {
             $options = $options->toArray();
+            if (!isset($options['port'])) {
+            	$options['port'] = 3306;
+            }
             $key = ($env != 'db') ? "database_".$env : $env;
             $di->set($key, function() use ($key, $options, $di) {
                 $db = new \Phalcon\Db\Adapter\Pdo\Mysql([
                     "host" => $options['host'],
                     "username" => $options['username'],
                     "password" => $options['password'],
-                    "dbname" => $options['name']
+                    "dbname" => $options['name'],
+                	"port" => $options['port'],
                 ]);
 
                 $result = $db->query("SHOW VARIABLES LIKE 'wait_timeout'");
