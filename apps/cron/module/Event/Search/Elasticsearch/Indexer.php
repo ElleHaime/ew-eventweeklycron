@@ -184,9 +184,11 @@ class Indexer extends BaseIndexer
         if (count($path) > 1) {
             $workingModelClass = array_shift($path);
             $workingModel = new $workingModelClass;
+            
             $refModelClass = array_shift($path);
             $refModel = new $refModelClass;
             $relationsRefModel = $workingModel->getRelationPath($refModel);
+            
             if (!$relationsRefModel) {
                 throw new \Engine\Exception("Did not find relations between '".get_class($workingModel)."' and '".$refModel."' for filter field '".$key."'");
             }
@@ -197,7 +199,12 @@ class Indexer extends BaseIndexer
             }
             $refKey = array_shift($relationsRefModel)->getFields();
             $keyParent = array_shift($relationsMainModel)->getFields();
+$mem_usage = memory_get_usage();
+echo "Use memory before ".round($mem_usage/1048576,2)." megabytes\n";
             $workingModel->setShardByCriteria($shardCriteria);
+$mem_usage = memory_get_usage();
+echo "Use memory after ".round($mem_usage/1048576,2)." megabytes\n\n";
+            
             $queryBuilder = $workingModel->queryBuilder();
             $db = $workingModel->getReadConnection();
             $queryBuilder->columns([$keyParent,$refKey]);

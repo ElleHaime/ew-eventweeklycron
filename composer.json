@@ -9,8 +9,8 @@
   ],
   "require": {
     "tieste/phalcon-extjs": "0.11.5.1",
-    "tieste/sharding": "0.6.1",
-    "tieste/phalcon-core": "0.11.6",
+    "tieste/sharding": "0.7.0",
+    "tieste/phalcon-core": "0.11.11",
     "tieste/message-center": "1.3.2",
     "tieste/mega-curl": "1.0.0",
     "tieste/phalcon-cron": "0.9.0",

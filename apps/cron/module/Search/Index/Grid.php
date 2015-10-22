@@ -71,8 +71,7 @@ class Grid
             $this->_index($params, $modelAdapter, $searchAdapter, $first);
             $first = false;
             $mem_usage = memory_get_usage();
-            $this->_message = "Use memory ".round($mem_usage/1048576,2)." megabytes\n\n";
-            $this->notify();
+            $this->_message = "Use memory after location ".round($mem_usage/1048576,2)." megabytes\n\n";
         }
 
         return true;
