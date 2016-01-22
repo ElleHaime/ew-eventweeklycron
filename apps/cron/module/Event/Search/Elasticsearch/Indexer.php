@@ -74,27 +74,29 @@ class Indexer extends BaseIndexer
         if ($params['location'] == 0) {
             $params['location'] = null;
         }
+  
         $filter->setParams($params);
         $filter->applyFilters($dataSource);
-
         $data = $container->getData($dataSource);
         echo "... found ".$data['total_items']." events\n";
+//die();
         $pages = $data['pages'];
         $i = 0;
         do {
             foreach ($data['data'] as $values) {
-                //$values = $values->toArray();
-                $values = (array)$values;
-                $response = $this->addItem($values, $grid, $shardCriteria);
-                if ($response->hasError()) {
-                    var_dump($response->getError());
-                }
+		      	$response = $this->addItem($values, $grid, $shardCriteria);
+		        if ($response->hasError()) {
+		            var_dump($response->getError());
+		        }
             }
             ++$i;
             $grid->clearData();
             $grid->setParams(['page' => $i + 1]);
             $data = $container->getData($dataSource);
         } while ($i < $pages);
+        
+        $mem_usage = memory_get_usage();
+        echo "Use memory ".round($mem_usage/1048576,2)." megabytes\n\r\n\r";
     }
 
     /**
@@ -114,7 +116,6 @@ class Indexer extends BaseIndexer
         if (!$itemDocument) {
             return;
         }
-
         return $this->getType()->addDocument($itemDocument);
     }
 
@@ -199,11 +200,9 @@ class Indexer extends BaseIndexer
             }
             $refKey = array_shift($relationsRefModel)->getFields();
             $keyParent = array_shift($relationsMainModel)->getFields();
-$mem_usage = memory_get_usage();
-echo "Use memory before ".round($mem_usage/1048576,2)." megabytes\n";
+// $mem_usage = memory_get_usage();
+// echo "Use memory ".round($mem_usage/1048576,2)." megabytes\n\r\n\r";
             $workingModel->setShardByCriteria($shardCriteria);
-$mem_usage = memory_get_usage();
-echo "Use memory after ".round($mem_usage/1048576,2)." megabytes\n\n";
             
             $queryBuilder = $workingModel->queryBuilder();
             $db = $workingModel->getReadConnection();

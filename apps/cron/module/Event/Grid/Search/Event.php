@@ -96,9 +96,11 @@ class Event extends Grid
                 'location'              => Criteria::CRITERIA_LIKE,
                 'category'              => Criteria::CRITERIA_LIKE,
                 'tag'                   => Criteria::CRITERIA_LIKE,
-            	'id'          			=> Criteria::CRITERIA_EQ
+            	'id'          			=> Criteria::CRITERIA_EQ,
+            	'fb_uid'				=> Criteria::CRITERIA_EQ
             ]),
             'name' => new Field\Name("Name"),
+        	'fb_uid' => new Field\Standart("Fb UID", 'fb_uid'),	
             'desc' => new Field\Standart("Description", 'description'),
             'location' => new Field\Join("Location", "\Event\Model\Location"),
             'campaign' => new Field\Join("Campaign", "\Event\Model\Campaign"),
