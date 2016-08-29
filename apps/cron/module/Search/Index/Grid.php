@@ -92,8 +92,8 @@ class Grid
         $indexer = new \Event\Search\Elasticsearch\Indexer($grid, $searchAdapter);
         $indexer->setDi($this->getDi());
         if ($removeIndex) {
-            $indexer->deleteIndex();
-            $indexer->createIndex();
+           $indexer->deleteIndex();
+           $indexer->createIndex();
         }
         $indexer->setData();
     }
