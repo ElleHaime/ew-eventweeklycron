@@ -91,3 +91,4 @@ class VenueTag extends \Engine\Mvc\Model
     	return 'venue_tag';
     }
 }
+

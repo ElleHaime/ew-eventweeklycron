@@ -62,6 +62,7 @@ class Grid
         $locations = $location->find()->toArray();
         $this -> _type == 'event' ? $first = true : $first = false;
 //        $first = true;
+        
         $mem_usage = memory_get_usage();
         $this->_message = "Use memory ".round($mem_usage/1048576,2)." megabytes\n\n";
         $this->notify();

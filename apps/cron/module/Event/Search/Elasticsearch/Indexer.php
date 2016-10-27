@@ -81,6 +81,7 @@ class Indexer extends BaseIndexer
         $data = $container->getData($dataSource);
         echo "... found ".$data['total_items']." objects\n";
 //die();
+
         $pages = $data['pages'];
         $i = 0;
         do {
@@ -202,7 +203,10 @@ class Indexer extends BaseIndexer
             $refKey = array_shift($relationsRefModel)->getFields();
             $keyParent = array_shift($relationsMainModel)->getFields();
 // $mem_usage = memory_get_usage();
-// echo "Use memory ".round($mem_usage/1048576,2)." megabytes\n\r\n\r";
+// echo "Use memory before ".round($mem_usage/1048576,2)." megabytes\n";
+            $workingModel->setShardByCriteria($shardCriteria);
+// $mem_usage = memory_get_usage();
+// echo "Use memory after ".round($mem_usage/1048576,2)." megabytes\n\n";
             $workingModel->setShardByCriteria($shardCriteria);
             
             $queryBuilder = $workingModel->queryBuilder();
