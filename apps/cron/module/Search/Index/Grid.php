@@ -60,12 +60,13 @@ class Grid
         $location = new \Event\Model\Location();
         $location->setReadConnectionService($modelAdapter);
         $locations = $location->find()->toArray();
-        $first = true;
+        $this -> _type == 'event' ? $first = true : $first = false;
+//        $first = true;
         $mem_usage = memory_get_usage();
         $this->_message = "Use memory ".round($mem_usage/1048576,2)." megabytes\n\n";
         $this->notify();
         foreach ($locations as $location) {
-            $this->_message = "Process events by location {$location['city']}('{$location['id']}')";
+            $this->_message = "Process " . $this -> _type . "s by location {$location['city']}('{$location['id']}')";
             $this->notify();
             $params = ['location' => $location['id']];
             $this->_index($params, $modelAdapter, $searchAdapter, $first);

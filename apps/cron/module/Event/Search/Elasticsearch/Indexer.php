@@ -46,6 +46,7 @@ class Indexer extends BaseIndexer
 
         $config = [];
         $config['model'] = $grid->getModel();
+                
         $config['conditions'] = $grid->getConditions();
         $config['joins'] = $grid->getJoins();
         $modelAdapter = $grid->getModelAdapter();
@@ -78,7 +79,7 @@ class Indexer extends BaseIndexer
         $filter->setParams($params);
         $filter->applyFilters($dataSource);
         $data = $container->getData($dataSource);
-        echo "... found ".$data['total_items']." events\n";
+        echo "... found ".$data['total_items']." objects\n";
 //die();
         $pages = $data['pages'];
         $i = 0;

@@ -11,61 +11,48 @@ namespace Event\Model;
  * @package    Event
  * @subpackage Model
  */
-class Venue extends \Engine\Mvc\Model
+class VenueTag extends \Engine\Mvc\Model
 {
+
     /**
      * Default name column
      * @var string
      */
-    protected $_nameExpr = 'name';
+    protected $_nameExpr = 'venue_id';
 
     /**
      * Default order column
      * @var string
      */
-    protected $_orderExpr = 'name';
+    protected $_orderExpr = 'tag_id';
 
-	public $id;
-	public $fb_uid;
-	public $fb_username;
-	public $eb_uid;
-	public $eb_url;
-	public $location_id;
-	public $name;
-	public $address;	
-	public $site;
-	public $logo;
-	public $latitude;  	
-	public $longitude;
-	public $intro;
-	public $description;
-	public $worktime;
-	public $phone;
-	public $email;
-	public $transit;
-	public $pricerange;
-	public $services;
-	public $specialties;
-	public $payment;
-	public $parking;
+    /**
+     *
+     * @var integer
+     */
+    public $id;
+     
+    /**
+     *
+     * @var integer
+     */
+    public $venue_id;
+     
+    /**
+     *
+     * @var integer
+     */
+    public $tag_id;
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->belongsTo("location_id", "\Event\Model\Location", "id", ['alias' => 'Location']);
-        $this->belongsTo("id", "Event\Model\VenueCategory", "venue_id", ['alias' => 'Category']);
-        $this->belongsTo("id", "Event\Model\VenueTag", "venue_id", ['alias' => 'Tag']);
+        $this->belongsTo("venue_id", "\Event\Model\Venue", "id", ['alias' => 'Venue']);
+        $this->belongsTo("tag_id", "\Event\Model\Tag", "id", ['alias' => 'Tag']);
     }
-    
-    
-    public function getSearchSource()
-    {
-    	return 'venue';
-    }
-    
-    
+
     public function onConstruct()
     {
     	$di = $this->getDI();
@@ -96,5 +83,11 @@ class Venue extends \Engine\Mvc\Model
     	$mngr -> setModelSource($this, $criteria);
     	
     	return;
+    }
+
+    
+    public function getSearchSource()
+    {
+    	return 'venue_tag';
     }
 }
